@@ -119,7 +119,7 @@
             <div>
                 <form action="/postit" method="Post">Post Form with XMLHttpRequest
                     @csrf
-                    <input type="text" name="email" id="">
+                    <input type="text" name="email" id="formparam1">
 
                     <button type="button" onclick="postit()">Postit</button>
                     {{-- <button type="submit">Submit</button> --}}
@@ -127,7 +127,7 @@
                 </form>
             </div>
 
-            <input id="try" type="text">
+            {{-- <input id="justaninput" type="text"> --}}
 
 
             <h3>users
@@ -145,8 +145,6 @@
             <div id="demo7">Response7 will be here</div>
             <div id="demo8">Response8 will be here</div>
         </div>
-
-        {{-- <div id="demo2">Response2 will be here</div> --}}
 
 
     </div>
@@ -174,22 +172,30 @@
     </script>
 
     <script>
-        // var try = document.getElementById("try").innerHTML.value;
+        // const formparam1 = {
+        // email: document.querySelector('#formparam1').value,
+        // }
 
+
+        // const formparam2 = {
+        // email: document.querySelector('#justaninput').value,
+        // }
+
+        let param = document.querySelector("#formparam1").value;
+        // console.log(param);
 
         function postit() {
-        var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function () {
-        if(this.readyState == 4 && this.status == 200){
-        document.getElementById("demo2").innerHTML = xhttp.responseText;
-        document.getElementById("demo3").innerHTML = xhttp.readyState;
-        document.getElementById("demo4").innerHTML = xhttp.status;
-        document.getElementById("demo5").innerHTML = xhttp.statusText;
-        document.getElementById("demo6").innerHTML = xhttp.responseXML;
-        document.getElementById("demo7").innerHTML = xhttp.getAllResponseHeaders();
-        document.getElementById("demo8").innerHTML = xhttp.getResponseHeader();
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function () {
+            if(this.readyState == 4 && this.status == 200){
+            document.getElementById("demo2").innerHTML = xhttp.responseText;
+            document.getElementById("demo3").innerHTML = xhttp.readyState;
+            document.getElementById("demo4").innerHTML = xhttp.status;
+            document.getElementById("demo5").innerHTML = xhttp.statusText;
+            // document.getElementById("demo6").innerHTML = xhttp.responseXML;
+            // document.getElementById("demo7").innerHTML = xhttp.getAllResponseHeaders();
+            document.getElementById("demo8").innerHTML = xhttp.getResponseHeader();
 
-        // alert('send');
         }
         };
 
@@ -198,14 +204,28 @@
          xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
          xhttp.setRequestHeader("X-CSRF-TOKEN", document.head.querySelector("[name=csrf-token]").content );
 
-        xhttp.send("email=anyad@anyad.hu"); //by get send method doesn't have a parameter.
+        // xhttp.send("email=anyad@anyad.hu"); //by get send method doesn't have a parameter.
 
-        }
+        // xhttp.send(JSON.stringify(param));
+        xhttp.send("email="+param);
+        // xhttp.send(formparam1); //object Object
+        // xhttp.send('formparam2'); //formparam2
+        //  xhttp.send("formparam1"); // formparam1
+        // xhttp.send(formparam2); //object Object
+
+        // xhttp.send(JSON.stringify(formparam1)); //maybe
+        // xhttp.send(JSON.stringify(formparam2)); //bad
+
+        // xhttp.onload = function() {
+        // // Do whatever with response
+        // alert(xhttp.responseText)
+        // }
+
+         }
     </script>
 </body>
 
 </html>
-
 
 
 {{-- // xhttp.open("POST", '{{route('profile.toggleCategory', $user)}}', true);

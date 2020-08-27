@@ -28,7 +28,8 @@ class UserController extends Controller
         $lastuser->email = $email;
         $lastuser->save();
         // return ('email has changed');
-        return view('welcome', compact('users'));
+        // return view('welcome', compact('users'));
+        return redirect('');
     }
 
 
@@ -45,9 +46,16 @@ class UserController extends Controller
         $lastuser->email = $email;
         $lastuser->save();
         //return ('email has changed');
+
+        // return redirect()->back();
+        // return redirect()->back()->with('users', $users);
+
+        // return redirect('/')->with('email');
+
         return response()->json($email);
 
-        // onreadystatechange
+        // $resp = response()->json($lastuser);
+        // return view('welcome', compact('users', 'resp'));
     }
 
     public function index()
