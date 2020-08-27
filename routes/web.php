@@ -16,3 +16,13 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+Route::get('users', 'UserController@index');
+//Route::post('{user}/togglecategory', 'Site\ProfileController@toggleCategory')->name('toggleCategory');
+
+Route::get('/XMLHttpRequest_GET', 'UserController@answertoget')->name('answertoget');
+
+Route::post('/post', 'UserController@post');
+
+Route::post('/postit', 'UserController@postit');
