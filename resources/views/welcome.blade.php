@@ -175,8 +175,7 @@
 
     <script>
         // var try = document.getElementById("try").innerHTML.value;
-        // var try = document.getElementById("try").value;
-        // alert(try);
+
 
         function postit() {
         var xhttp = new XMLHttpRequest();
