@@ -34,3 +34,6 @@ $categories = explode(',', $request->categories);
 
         $user->categories()->sync($categories);
     }
+
+maybe this helps to me.
+https://attacomsian.com/blog/xhr-json-post-request
