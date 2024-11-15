@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class UserController extends Controller
 {
-    public function answertoget()
+    public function answerToGet()
     {
         $firstuser = User::first();
         //dd($user);
@@ -22,7 +22,7 @@ class UserController extends Controller
         $lastuser = User::all()->last();
         // dd($lastuser);
 
-        $email = request('email');
+        $email = request('email') ?? 'defaultEmail@demail.com';
         // dd($email);
 
         $lastuser->email = $email;
@@ -33,14 +33,14 @@ class UserController extends Controller
     }
 
 
-    public function postit()
+    public function postIt()
     {
         $users = User::all();
 
         $lastuser = User::all()->last();
         // dd($lastuser);
 
-        $email = request('email');
+        $email = request('email') ?? 'defaultEmail';
         // dd($email);
 
         $lastuser->email = $email;

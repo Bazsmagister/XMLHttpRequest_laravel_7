@@ -72,17 +72,17 @@
 <body>
     <div class="flex-center position-ref full-height">
         @if (Route::has('login'))
-        <div class="top-right links">
-            @auth
-            <a href="{{ url('/home') }}">Home</a>
-            @else
-            <a href="{{ route('login') }}">Login</a>
+            <div class="top-right links">
+                @auth
+                    <a href="{{ url('/home') }}">Home</a>
+                @else
+                    <a href="{{ route('login') }}">Login</a>
 
-            @if (Route::has('register'))
-            <a href="{{ route('register') }}">Register</a>
-            @endif
-            @endauth
-        </div>
+                    @if (Route::has('register'))
+                        <a href="{{ route('register') }}">Register</a>
+                    @endif
+                @endauth
+            </div>
         @endif
 
         <div class="content">
@@ -91,12 +91,12 @@
             </div>
 
             <div class="links">
-                <a href="https://laravel.com/docs">Docs</a>
+                {{-- <a href="https://laravel.com/docs">Docs</a>
 
-                <a href="https://laracasts.com">Laracasts</>
+                <a href="https://laracasts.com">Laracasts</> --}}
 
-                    <a href="users">users</a>
-                    <a href="XMLHttpRequest_GET">XMLHttpRequest GET</a>
+                <a href="users">users</a>
+                <a href="XMLHttpRequest_GET">XMLHttpRequest GET</a>
 
 
             </div>
@@ -117,11 +117,11 @@
 
 
             <div>
-                <form action="/postit" method="Post">Post Form with XMLHttpRequest
+                <form action="/postIt" method="Post">Post Form with XMLHttpRequest
                     @csrf
                     <input type="text" name="email" id="formparam1">
 
-                    <button type="button" onclick="postit()">Postit</button>
+                    <button type="button" onclick="postIt()">postIt</button>
                     {{-- <button type="submit">Submit</button> --}}
 
                 </form>
@@ -131,10 +131,10 @@
 
 
             <h3>users
-                @foreach ($users as $user )
-                {{ $user->email }}
+                @foreach ($users as $user)
+                    {{ $user->email }}
 
-                <br>
+                    <br>
                 @endforeach
             </h3>
             <div id="demo2">Response2 will be here</div>
@@ -151,24 +151,23 @@
 
     <script>
         function loadXMLDoc() {
-        var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function () {
-            if(this.readyState == 4 && this.status == 200){
-                document.getElementById("demo").innerHTML = xhttp.responseText;
-                // alert('send');
-            }
-        };
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById("demo").innerHTML = xhttp.responseText;
+                    // alert('send');
+                }
+            };
 
-        xhttp.open("GET", 'XMLHttpRequest_GET?t=" + Math.random()', true);
+            xhttp.open("GET", 'XMLHttpRequest_GET?t=" + Math.random()', true);
 
-        //These lines are needed in POST
-        // xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        // xhttp.setRequestHeader("X-CSRF-TOKEN", document.head.querySelector("[name=csrf-token]").content );
+            //These lines are needed in POST
+            // xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            // xhttp.setRequestHeader("X-CSRF-TOKEN", document.head.querySelector("[name=csrf-token]").content );
 
-        xhttp.send(); //by get send method doesnt have a parameter.
+            xhttp.send(); //by get send method doesnt have a parameter.
 
         }
-
     </script>
 
     <script>
@@ -184,44 +183,44 @@
         let param = document.querySelector("#formparam1").value;
         // console.log(param);
 
-        function postit() {
+        function postIt() {
             var xhttp = new XMLHttpRequest();
-            xhttp.onreadystatechange = function () {
-            if(this.readyState == 4 && this.status == 200){
-            document.getElementById("demo2").innerHTML = xhttp.responseText;
-            document.getElementById("demo3").innerHTML = xhttp.readyState;
-            document.getElementById("demo4").innerHTML = xhttp.status;
-            document.getElementById("demo5").innerHTML = xhttp.statusText;
-            // document.getElementById("demo6").innerHTML = xhttp.responseXML;
-            // document.getElementById("demo7").innerHTML = xhttp.getAllResponseHeaders();
-            document.getElementById("demo8").innerHTML = xhttp.getResponseHeader();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById("demo2").innerHTML = xhttp.responseText;
+                    document.getElementById("demo3").innerHTML = xhttp.readyState;
+                    document.getElementById("demo4").innerHTML = xhttp.status;
+                    document.getElementById("demo5").innerHTML = xhttp.statusText;
+                    // document.getElementById("demo6").innerHTML = xhttp.responseXML;
+                    // document.getElementById("demo7").innerHTML = xhttp.getAllResponseHeaders();
+                    document.getElementById("demo8").innerHTML = xhttp.getResponseHeader();
+
+                }
+            };
+
+            xhttp.open("POST", "postIt", true);
+            //These 2 lines are needed in POST
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.setRequestHeader("X-CSRF-TOKEN", document.head.querySelector("[name=csrf-token]").content);
+
+            // xhttp.send("email=email@email.com"); //by get send method doesn't have a parameter.
+
+            // xhttp.send(JSON.stringify(param));
+            xhttp.send("email=" + param);
+            // xhttp.send(formparam1); //object Object
+            // xhttp.send('formparam2'); //formparam2
+            //  xhttp.send("formparam1"); // formparam1
+            // xhttp.send(formparam2); //object Object
+
+            // xhttp.send(JSON.stringify(formparam1)); //maybe
+            // xhttp.send(JSON.stringify(formparam2)); //bad
+
+            // xhttp.onload = function() {
+            // // Do whatever with response
+            // alert(xhttp.responseText)
+            // }
 
         }
-        };
-
-        xhttp.open("POST", "postit", true);
-        //These 2 lines are needed in POST
-         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-         xhttp.setRequestHeader("X-CSRF-TOKEN", document.head.querySelector("[name=csrf-token]").content );
-
-        // xhttp.send("email=anyad@anyad.hu"); //by get send method doesn't have a parameter.
-
-        // xhttp.send(JSON.stringify(param));
-        xhttp.send("email="+param);
-        // xhttp.send(formparam1); //object Object
-        // xhttp.send('formparam2'); //formparam2
-        //  xhttp.send("formparam1"); // formparam1
-        // xhttp.send(formparam2); //object Object
-
-        // xhttp.send(JSON.stringify(formparam1)); //maybe
-        // xhttp.send(JSON.stringify(formparam2)); //bad
-
-        // xhttp.onload = function() {
-        // // Do whatever with response
-        // alert(xhttp.responseText)
-        // }
-
-         }
     </script>
 </body>
 

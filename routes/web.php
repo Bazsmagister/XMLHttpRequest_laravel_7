@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    $users= App\User::all();
+    $users = App\Models\User::all();
     return view('welcome', compact('users'));
 });
 
@@ -22,8 +22,8 @@ Route::get('/', function () {
 Route::get('users', 'UserController@index');
 //Route::post('{user}/togglecategory', 'Site\ProfileController@toggleCategory')->name('toggleCategory');
 
-Route::get('/XMLHttpRequest_GET', 'UserController@answertoget')->name('answertoget');
+Route::get('/XMLHttpRequest_GET', 'UserController@answerToGet')->name('answerToGet');
 
 Route::post('/post', 'UserController@post');
 
-Route::post('/postit', 'UserController@postit');
+Route::post('/postIt', 'UserController@postIt');

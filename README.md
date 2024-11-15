@@ -1,39 +1,33 @@
 # XMLHttpRequest example
 
-from SO:
-web.php:
-
-Route::post('{user}/togglecategory', 'Site\ProfileController@toggleCategory')->name('toggleCategory');
+updated to laravel8.
 
 Javascript code:
 
+```js
 var xhttp = new XMLHttpRequest();
 xhttp.onreadystatechange = function () {
-if(this.readyState == 4 && this.status == 200){
-alert('send');
-
-         }
-          };
-
-
-        xhttp.open("POST", '{{route('profile.toggleCategory', $user)}}', true);
-
-        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xhttp.setRequestHeader("X-CSRF-TOKEN", document.head.querySelector("[name=csrf-token]").content );
-
-        xhttp.send("categories="+categories);
-
-
-        });
-
-Laravel Controller:
-
-public function toggleCategory(Request $request, User $user)
-{
-$categories = explode(',', $request->categories);
-
-        $user->categories()->sync($categories);
+    if (this.readyState == 4 && this.status == 200) {
+        document.getElementById("demo2").innerHTML = xhttp.responseText;
+        document.getElementById("demo3").innerHTML = xhttp.readyState;
+        document.getElementById("demo4").innerHTML = xhttp.status;
+        document.getElementById("demo5").innerHTML = xhttp.statusText;
+        // document.getElementById("demo6").innerHTML = xhttp.responseXML;
+        // document.getElementById("demo7").innerHTML = xhttp.getAllResponseHeaders();
+        document.getElementById("demo8").innerHTML = xhttp.getResponseHeader();
     }
+};
 
-maybe this helps to me.
+xhttp.open("POST", "postIt", true);
+//These 2 lines are needed in POST
+xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+xhttp.setRequestHeader(
+    "X-CSRF-TOKEN",
+    document.head.querySelector("[name=csrf-token]").content
+);
+// xhttp.send(JSON.stringify(param));
+xhttp.send("email=" + param);
+```
+
+Idea, and more info from:
 https://attacomsian.com/blog/xhr-json-post-request
